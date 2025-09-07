@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.name }} - MovieHub</title>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
+        }
+        .movie-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(to right, #141e30, #243b55);
+        }
+        .movie-poster {
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px 0 0 20px;
+        }
+        .card-body {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+        }
+        .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .comment-card {
+            background: #1f2937;
+            border-radius: 15px;
+        }
+        .comment-card textarea {
+            background: #374151;
+            border: none;
+            color: #fff;
+        }
+        .comment-list {
+            margin-top: 30px;
+        }
+        .comment-item {
+            background: #111827;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+
+
+    <div class="card movie-card shadow-lg">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if movie.photo %}
+                <img src="{{ movie.photo.url }}" class="img-fluid movie-poster" alt="{{ movie.name }}">
+                {% else %}
+                <img src="https://via.placeholder.com/400x600" class="img-fluid movie-poster" alt="No Image">
+                {% endif %}
+            </div>
+            <div class="col-md-8 d-flex align-items-center">
+                <div class="card-body">
+                    <h3 class="card-title">{{ movie.name }}</h3>
+                    <p  style="color: cyan;">Release date: {{ movie.release_date }}</p>
+                    <hr>
+                    <p class="card-text lead">{{ movie.description }}</p>
+                    <p class="card-text" style="color: cyan;><small class="text-info" ">Genre: {{ movie.genre.name }}</small></p>
+
+
+                    {% if request.user.is_authenticated %}
+                    <div class="comment-card p-3 mt-4">
+
+                        <form method="post" action="{% url 'add_comment' movie.pk %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-light btn-sm mt-2">Send</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="mt-3"><a href="{% url 'login' %}" class="text-info">Login to add a comment</a></p>
+                    {% endif %}
+
+
+                    <a href="{% url 'home' %}" class="btn btn-outline-light mt-4">⬅ Back to Movies</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="comment-list mt-5">
+        <h4>📝 Izohlar</h4>
+        {% for comment in comments %}
+        <div class="comment-item">
+            <strong>{{ comment.user.username }}</strong> <small class="text-muted">{{ comment.created| date:"M d, Y H:i"}}</small>
+            <p>{{ comment.text }}</p>
+        </div>
+        {% empty %}
+        <p style="color: white;">Hali izoh qoldirilmagan!</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.umd.min.js"
+></script>
+</body>
+</html>

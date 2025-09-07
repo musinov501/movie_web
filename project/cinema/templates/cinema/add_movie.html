@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie - MovieHub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #00c6ff;
+        }
+        .btn-custom {
+            background: #00c6ff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-custom:hover {
+            background: #0072ff;
+            transform: scale(1.05);
+        }
+        input, textarea, select {
+            background: #1f2937 !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            border: none !important;
+        }
+        label {
+            color: #ddd;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="form-card">
+        <h2 class="form-title">🎬 Add a New Movie</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-custom">➕ Add Movie</button>
+                <a href="{% url 'home' %}" class="btn btn-outline-light ms-2">⬅ Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.umd.min.js"></script>
+</body>
+</html>
