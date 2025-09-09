@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
+from django.contrib import messages
 from .models import Movie, Genre, Comment
 from .forms import CommentForm, MovieForm
+
 
 def home(request: HttpRequest):
     movies = Movie.objects.all()
@@ -68,3 +70,33 @@ def save_movies(request: HttpRequest):
     else:
         return redirect("home")
 
+
+def update_movies(request, pk: int):
+    movies = get_object_or_404(Movie, pk=pk)
+    if request.method == 'POST':
+        form = MovieForm(data=request.POST, files=request.FILES, instance=movies)
+        if form.is_valid():
+            movies = form.save()
+            messages.info(request, f'"{movies.name}" has been updated.')
+
+            return redirect("show_detail", pk=movies.pk)
+
+    else:
+        form = MovieForm(instance=movies)
+    context = {
+        'form': form
+    }
+    return render(request, 'cinema/add_movie.html', context)
+
+
+def delete_movies(request, pk: int):
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == 'POST':
+        movie.delete()
+        messages.success(request, f'"{movie.name}" was successfully deleted!')
+        return redirect('home')
+    else:
+        context = {
+            'title': movie.name
+        }
+        return render(request, 'cinema/confirm_delete.html', context)

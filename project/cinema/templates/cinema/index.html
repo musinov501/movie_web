@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +42,14 @@
             background: rgba(0,0,0,0.5);
             border-radius: 10px;
         }
+
+        .carousel-inner img {
+    height: 800px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 10px;
+}
+
 
 
         .card {
@@ -145,6 +155,32 @@
     </nav>
     <!-- Navbar -->
 
+
+    {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm auto-dismiss"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+    <script>
+
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.auto-dismiss');
+      alerts.forEach(alert => {
+        if (typeof mdb !== "undefined" && mdb.Alert) {
+          const alertInstance = new mdb.Alert(alert);
+          alertInstance.close();
+        }
+      });
+    }, 5000); // 5000ms = 5 seconds
+  </script>
+    {%endif%}
+
     <!-- Carousel wrapper -->
     <div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel"
          data-mdb-carousel-init>
@@ -163,31 +199,36 @@
         <div class="carousel-inner rounded-5 shadow-4-strong">
             <!-- Single item -->
             <div class="carousel-item active">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp" class="d-block w-100"
-                     alt="Sunset Over the City"/>
+                <img src="{% static 'images/movie1.jpg' %}" class="d-block w-100"
+                     alt="Movie 1"/>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h5>The Lord of Kings</h5>
+                    <p>A young hobbit, Frodo Baggins, embarks on a perilous journey to destroy the One Ring and save
+                        Middle-earth from the dark lord Sauron, facing epic battles, treacherous landscapes, and loyal
+                        companions along the way.</p>
                 </div>
             </div>
 
             <!-- Single item -->
             <div class="carousel-item">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp" class="d-block w-100"
+                <img src="{% static 'images/movie2.jpg' %}" class="d-block w-100"
                      alt="Canyon at Nigh"/>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h5>IT</h5>
+                    <p>In the town of Derry, a group of kids face their worst fears when they confront a shape-shifting,
+                        child-eating entity that often appears as a terrifying clown named Pennywise.</p>
                 </div>
             </div>
 
             <!-- Single item -->
             <div class="carousel-item">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp" class="d-block w-100"
+                <img src="{% static 'images/movie3.jpg' %}" class="d-block w-100"
                      alt="Cliff Above a Stormy Sea"/>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h5>John Wick</h5>
+                    <p>After the death of his wife, retired hitman John Wick is drawn back into the criminal underworld
+                        when a group of gangsters steals his car and kills his dog, seeking vengeance against those who
+                        wronged him.</p>
                 </div>
             </div>
         </div>
@@ -218,7 +259,7 @@
         </div>
         <div class="col-8">
             <div class="row row-cols-1 row-cols-md-3 g-4">
-              {% for movie in movies%}
+                {% for movie in movies%}
                 <div class="col">
                     <div class="card h-100">
                         {% if movie.photo %}
@@ -234,12 +275,43 @@
                                 {{movie.description|truncatewords:15}}
                             </p>
                         </div>
-                        <div class="card-footer">
-                            <small style="color: cyan;">Release date: {{movie.release_date}}</small>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <small class="text-info fw-semibold">
+                                📅 Release date: {{ movie.release_date }}
+                            </small>
+                            <div class="d-flex gap-2">
+                                <!-- Edit button -->
+                                <a href="{% url 'update_movies' movie.pk %}"
+                                   class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                   title="O'zgartirish" aria-label="Edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M12 20h9"/>
+                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                                    </svg>
+                                </a>
+
+                                <!-- Delete button -->
+                                <a href="{% url 'delete_movie' movie.pk %}"
+                                   class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
+                                   title="O'chirish" aria-label="Delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <polyline points="3 6 5 6 21 6"/>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                        <line x1="10" y1="11" x2="10" y2="17"/>
+                                        <line x1="14" y1="11" x2="14" y2="17"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
-              {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -248,7 +320,8 @@
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-body-tertiary text-muted">
         <!-- Section: Social media -->
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom" style="background-color: #1b1f26;">
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+                 style="background-color: #1b1f26;">
             <!-- Left -->
             <div class="me-5 d-none d-lg-block">
                 <span style="color: #a0aec0;">Get connected with us on social networks:</span>
@@ -383,5 +456,6 @@
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.umd.min.js"
 ></script>
+
 </body>
 </html>

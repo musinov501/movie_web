@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassiXER</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Hero section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      padding: 100px 0;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+    .hero span {
+      color: #00c0d6;
+    }
+
+    /* Search bar */
+    .search-bar {
+      margin-top: 30px;
+    }
+    .search-bar .form-control,
+    .search-bar .form-select {
+      border-radius: 50px;
+    }
+    .search-btn {
+      border-radius: 50px;
+      background: #00c0d6;
+      border: none;
+      padding: 10px 30px;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Categories section */
+    .categories {
+      background: #f8f9fa;
+      padding: 40px 0;
+    }
+    .categories .cat-box {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .categories .cat-box:hover,
+    .categories .cat-box.active {
+      background: #00c0d6;
+      color: white;
+    }
+    .categories i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Ads cards */
+    .ads-section {
+      padding: 60px 0;
+    }
+    .ad-card {
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .ad-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .ad-card img {
+      height: 180px;
+      object-fit: cover;
+    }
+    .ad-card .btn {
+      background: #00c0d6;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #111;
+      color: #bbb;
+      padding: 40px 0 20px;
+    }
+    .footer h5 {
+      color: white;
+      margin-bottom: 20px;
+    }
+    .footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: #00c0d6;
+    }
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 15px;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand text-primary fw-bold" href="#">ClassiX<span class="text-info">ER</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Listings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+        <a href="#" class="btn btn-outline-info ms-3">My Account</a>
+        <a href="#" class="btn btn-info text-white ms-2">Post An Ad</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content container">
+      <h1>WELCOME TO <span>CLASSIXER</span></h1>
+      <p>Buy And Sell Everything From Used Cars To Mobile Phones And Computers,<br> Or Search For Property, Jobs And More</p>
+
+      <!-- Search Bar -->
+      <div class="row search-bar g-2 justify-content-center">
+        <div class="col-md-3">
+          <input type="text" class="form-control" placeholder="Enter Product Keyword">
+        </div>
+        <div class="col-md-3">
+          <select class="form-select">
+            <option>Locations</option>
+            <option>Tashkent</option>
+            <option>Samarkand</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select">
+            <option>Categories</option>
+            <option>Vehicle</option>
+            <option>Electronics</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn search-btn w-100"><i class="fa fa-search"></i> SEARCH NOW</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-2"><div class="cat-box active"><i class="fa fa-car"></i><p>Vehicle</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-tv"></i><p>Electronics</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-mobile"></i><p>Mobiles</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-couch"></i><p>Furnitures</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-tshirt"></i><p>Fashion</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-briefcase"></i><p>Jobs</p></div></div>
+      </div>
+      <div class="row g-4 text-center mt-3">
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-home"></i><p>Real Estate</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-dog"></i><p>Animals</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-graduation-cap"></i><p>Education</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-laptop"></i><p>Laptops & PCs</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-concierge-bell"></i><p>Services</p></div></div>
+        <div class="col-6 col-md-2"><div class="cat-box"><i class="fa fa-heart"></i><p>Matrimony</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Ads -->
+  <section class="ads-section">
+    <div class="container">
+      <h2 class="text-center mb-5">Featured Ads</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card ad-card shadow-sm">
+            <img src="https://images.unsplash.com/photo-1517142089942-ba376ce32a0a?w=600" class="card-img-top" alt="Car">
+            <div class="card-body">
+              <h5 class="card-title">Toyota Corolla 2020</h5>
+              <p class="card-text">Well maintained, low mileage, excellent condition.</p>
+              <a href="#" class="btn w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card ad-card shadow-sm">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600" class="card-img-top" alt="Phone">
+            <div class="card-body">
+              <h5 class="card-title">iPhone 13 Pro Max</h5>
+              <p class="card-text">Almost new, 256GB storage, warranty included.</p>
+              <a href="#" class="btn w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card ad-card shadow-sm">
+            <img src="https://images.unsplash.com/photo-1560448075-bb485b4b5d2a?w=600" class="card-img-top" alt="Apartment">
+            <div class="card-body">
+              <h5 class="card-title">2-Bedroom Apartment</h5>
+              <p class="card-text">Modern flat in Tashkent, prime location.</p>
+              <a href="#" class="btn w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About ClassiXER</h5>
+          <p>Your trusted platform to buy, sell and discover amazing deals near you.</p>
+        </div>
+        <div class="col-md-2">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Listings</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Support</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety Tips</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Subscribe</h5>
+          <form class="d-flex">
+            <input type="email" class="form-control me-2" placeholder="Your Email">
+            <button class="btn btn-info text-white">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 ClassiXER. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
